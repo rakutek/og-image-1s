@@ -13,13 +13,11 @@ const mono = readFileSync(`${__dirname}/../_fonts/Vera-Mono.woff2`).toString('ba
 
 function getCss(theme: string, fontSize: string) {
     let background = 'white';
-    let foreground = 'black';
-    let radial = 'lightgray';
+    let foreground = 'black'; 
 
     if (theme === 'dark') {
         background = 'black';
         foreground = 'white';
-        radial = 'dimgray';
     }
     return `
     @import url('https://fonts.googleapis.com/css?family=M+PLUS+1p');
@@ -47,8 +45,6 @@ function getCss(theme: string, fontSize: string) {
 
     body {
         background: ${background};
-        background-image: radial-gradient(circle at 25px 25px, ${radial} 2%, transparent 0%), radial-gradient(circle at 75px 75px, ${radial} 2%, transparent 0%);
-        background-size: 100px 100px;
         height: 100vh;
         display: flex;
         text-align: center;
@@ -69,14 +65,19 @@ function getCss(theme: string, fontSize: string) {
 
     .logo-wrapper {
         display: flex;
+        width: auto;
         align-items: center;
         align-content: center;
         justify-content: center;
         justify-items: center;
+        margin: auto;
     }
 
     .logo {
-        margin: 0 75px;
+        width: 100%;
+        height: 400px;
+        object-fit: contain;
+        margin-bottom: -20px;
     }
 
     .plus {
@@ -107,7 +108,7 @@ function getCss(theme: string, fontSize: string) {
 }
 
 export function getHtml(parsedReq: ParsedRequest) {
-    const { text, theme, md, fontSize } = parsedReq;
+    const { text, theme = "light", md = 0, fontSize = "60px"} = parsedReq;
     return `<!DOCTYPE html>
 <html>
     <meta charset="utf-8">
@@ -117,12 +118,21 @@ export function getHtml(parsedReq: ParsedRequest) {
         ${getCss(theme, fontSize)}
     </style>
     <body>
-        <div>
-            <div class="spacer">
-            <div class="heading">${emojify(
-                md ? marked(text) : sanitizeHtml(text)
-            )}
-            </div>
+    <div>
+        <div class="spacer"></div>
+        <div class="logo-wrapper">
+            <img 
+                class="logo"
+                alt="Generated Image"
+                src="https://images.microcms-assets.io/protected/ap-northeast-1:7b46820b-9e1b-4aab-ba38-e994b4176f3c/service/marina/media/nyan.jpg"
+
+            />
+        </div>
+        <div class="heading">${emojify(
+            md ? marked(text) : sanitizeHtml(text)
+        )}
+        </div>
+        <div class="spacer"></div>
         </div>
     </body>
 </html>`;
