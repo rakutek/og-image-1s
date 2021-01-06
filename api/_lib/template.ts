@@ -50,6 +50,7 @@ function getCss(theme: string, fontSize: string) {
         text-align: center;
         align-items: center;
         justify-content: center;
+        padding: 12px;
     }
 
     code {
@@ -66,16 +67,17 @@ function getCss(theme: string, fontSize: string) {
     .logo-wrapper {
         display: flex;
         width: auto;
+        height: 400px;
         align-items: center;
         align-content: center;
         justify-content: center;
         justify-items: center;
-        margin: auto;
+        margin: 0 auto -100px;
     }
 
     .logo {
         width: 100%;
-        height: 400px;
+        height: 100%;
         object-fit: contain;
         margin-bottom: -20px;
     }
@@ -119,7 +121,7 @@ export function getHtml(parsedReq: ParsedRequest) {
     </style>
     <body>
     <div>
-        <div class="spacer"></div>
+
         <div class="logo-wrapper">
             <img 
                 class="logo"
@@ -132,7 +134,6 @@ export function getHtml(parsedReq: ParsedRequest) {
             md ? marked(text) : sanitizeHtml(text)
         )}
         </div>
-        <div class="spacer"></div>
         </div>
     </body>
 </html>`;
