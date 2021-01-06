@@ -45,8 +45,7 @@ function getCss(theme: string, fontSize: string) {
 
     body {
         background: ${background};
-        height: 630px;
-        width: 1200px;
+        height: 100vh;
         display: flex;
         text-align: center;
         align-items: center;
@@ -73,7 +72,7 @@ function getCss(theme: string, fontSize: string) {
         align-content: center;
         justify-content: center;
         justify-items: center;
-        margin: 0 auto -100px;
+        margin: -80px auto -100px;
     }
 
     .logo {
