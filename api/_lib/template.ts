@@ -120,20 +120,19 @@ export function getHtml(parsedReq: ParsedRequest) {
         ${getCss(theme, fontSize)}
     </style>
     <body>
-    <div>
+        <div>
+            <div class="logo-wrapper">
+                <img 
+                    class="logo"
+                    alt="Generated Image"
+                    src="https://images.microcms-assets.io/protected/ap-northeast-1:7b46820b-9e1b-4aab-ba38-e994b4176f3c/service/marina/media/nyan.jpg"
 
-        <div class="logo-wrapper">
-            <img 
-                class="logo"
-                alt="Generated Image"
-                src="https://images.microcms-assets.io/protected/ap-northeast-1:7b46820b-9e1b-4aab-ba38-e994b4176f3c/service/marina/media/nyan.jpg"
-
-            />
-        </div>
-        <div class="heading">${emojify(
-            md ? marked(text) : sanitizeHtml(text)
-        )}
-        </div>
+                />
+            </div>
+            <div class="heading">${emojify(
+                md ? marked(text) : sanitizeHtml(text)
+            )}
+            </div>
         </div>
     </body>
 </html>`;
