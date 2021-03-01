@@ -5,7 +5,7 @@ import { ParsedRequest } from './types';
 export function parseRequest(req: IncomingMessage) {
     console.log('HTTP ' + req.url);
     const { pathname, query } = parse(req.url || '/', true);
-    const { fontSize, theme, md } = (query || {});
+    const { fontSize, theme, md,title } = (query || {});
 
     if (Array.isArray(fontSize)) {
         throw new Error('Expected a single fontSize');
@@ -13,7 +13,7 @@ export function parseRequest(req: IncomingMessage) {
     if (Array.isArray(theme)) {
         throw new Error('Expected a single theme');
     }
-    
+
     const arr = (pathname || '/').slice(1).split('.');
     const apiVersion = 'apiv2/'
     let extension = '';
@@ -27,8 +27,11 @@ export function parseRequest(req: IncomingMessage) {
         text = arr.join('.').replace(apiVersion,'');
     }
 
+
+
     const parsedRequest: ParsedRequest = {
         fileType: extension === 'jpeg' ? extension : 'png',
+        title: getArray(title),
         text: decodeURIComponent(text),
         theme: theme === 'dark' ? 'dark' : 'light',
         md: md === '1' || md === 'true',
@@ -37,3 +40,12 @@ export function parseRequest(req: IncomingMessage) {
     return parsedRequest;
 }
 
+function getArray(stringOrArray: string[] | string | undefined): string[] {
+    if (typeof stringOrArray === 'undefined') {
+        return [];
+    } else if (Array.isArray(stringOrArray)) {
+        return stringOrArray;
+    } else {
+        return [stringOrArray];
+    }
+}

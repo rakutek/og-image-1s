@@ -1,25 +1,30 @@
+import { readFileSync } from 'fs'
+import marked from 'marked'
+import { sanitizeHtml } from './sanitizer'
+import { ParsedRequest } from './types'
+const twemoji = require('twemoji')
+const twOptions = { folder: 'svg', ext: '.svg' }
+const emojify = (text: string) => twemoji.parse(text, twOptions)
 
-import { readFileSync } from 'fs';
-import marked from 'marked';
-import { sanitizeHtml } from './sanitizer';
-import { ParsedRequest } from './types';
-const twemoji = require('twemoji');
-const twOptions = { folder: 'svg', ext: '.svg' };
-const emojify = (text: string) => twemoji.parse(text, twOptions);
-
-const rglr = readFileSync(`${__dirname}/../_fonts/Inter-Regular.woff2`).toString('base64');
-const bold = readFileSync(`${__dirname}/../_fonts/Inter-Bold.woff2`).toString('base64');
-const mono = readFileSync(`${__dirname}/../_fonts/Vera-Mono.woff2`).toString('base64');
+const rglr = readFileSync(
+  `${__dirname}/../_fonts/Inter-Regular.woff2`
+).toString('base64')
+const bold = readFileSync(`${__dirname}/../_fonts/Inter-Bold.woff2`).toString(
+  'base64'
+)
+const mono = readFileSync(`${__dirname}/../_fonts/Vera-Mono.woff2`).toString(
+  'base64'
+)
 
 function getCss(theme: string, fontSize: string) {
-    let background = 'white';
-    let foreground = 'black'; 
+  let background = 'white'
+  let foreground = 'black'
 
-    if (theme === 'dark') {
-        background = 'black';
-        foreground = 'white';
-    }
-    return `
+  if (theme === 'dark') {
+    background = 'black'
+    foreground = 'white'
+  }
+  return `
     @import url('https://fonts.googleapis.com/css?family=M+PLUS+1p');
 
     @font-face {
@@ -47,10 +52,11 @@ function getCss(theme: string, fontSize: string) {
         background: ${background};
         height: 100vh;
         display: flex;
-        text-align: center;
+        // text-align: center;
         align-items: center;
         justify-content: center;
         padding: 12px;
+        background-image: linear-gradient(315deg, #f9c5d1 0%, #9795ef 74%);
     }
 
     code {
@@ -64,29 +70,6 @@ function getCss(theme: string, fontSize: string) {
         content: '\`';
     }
 
-    .logo-wrapper {
-        display: flex;
-        width: auto;
-        height: 400px;
-        align-items: center;
-        align-content: center;
-        justify-content: center;
-        justify-items: center;
-        margin: -80px auto -100px;
-    }
-
-    .logo {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        margin-bottom: -20px;
-    }
-
-    .plus {
-        color: #BBB;
-        font-family: Times New Roman, Verdana;
-        font-size: 100px;
-    }
 
     .spacer {
         margin: 75px;
@@ -106,12 +89,12 @@ function getCss(theme: string, fontSize: string) {
         font-weight: 400;
         color: ${foreground};
         line-height: 1.8;
-    }`;
+    }`
 }
 
 export function getHtml(parsedReq: ParsedRequest) {
-    const { text, theme = "light", md = 0, fontSize = "60px"} = parsedReq;
-    return `<!DOCTYPE html>
+  const { text, title, theme = 'light', md = 0, fontSize = '60px' } = parsedReq
+  return `<!DOCTYPE html>
 <html>
     <meta charset="utf-8">
     <title>Generated Image</title>
@@ -121,20 +104,47 @@ export function getHtml(parsedReq: ParsedRequest) {
     </style>
     <body>
         <div>
-            <div class="logo-wrapper">
+
+            
+                            <div
+    style="
+      /*margin: 20px;*/
+      border: 8px white solid;
+      
+      border-top-left-radius: 35px;
+      border-bottom-right-radius: 35px;
+      padding: 10px 30px 10px 30px;
+      font-weight: bold;
+    
+    "
+  >
+                          <div class="heading">${emojify(
+                            sanitizeHtml(title[0])
+                          )}
+            </div>
+            
+            <div class="heading">${emojify(
+              md ? marked(text) : sanitizeHtml(text)
+            )}
+            </div>
+            
+                        
                 <img 
                     class="logo"
                     alt="Generated Image"
                     src="https://images.microcms-assets.io/protected/ap-northeast-1:7b46820b-9e1b-4aab-ba38-e994b4176f3c/service/marina/media/nyan.jpg"
 
+                    style="border-radius: 50%"
+                     width="130px"
+                     float: right;
                 />
-            </div>
-            <div class="heading">${emojify(
-                md ? marked(text) : sanitizeHtml(text)
-            )}
+            
+            
+            
+            
+            
             </div>
         </div>
     </body>
-</html>`;
+</html>`
 }
-
