@@ -122,10 +122,12 @@ export function getHtml(parsedReq: ParsedRequest) {
     
     border-top-left-radius: 40px;
     border-bottom-right-radius: 40px;
-    padding: 8px 8px 4px 30px;
+    padding: 30px 8px 0px 30px;
     margin-right: 66px;
     margin-left: 66px;
     font-weight: bold;
+    width:800px;
+    height: 500px;
     
     "
     >
