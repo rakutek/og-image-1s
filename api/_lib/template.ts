@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs'
-import marked from 'marked'
+
 import { sanitizeHtml } from './sanitizer'
 import { ParsedRequest } from './types'
 
@@ -19,7 +19,7 @@ const mono = readFileSync(`${__dirname}/../_fonts/Vera-Mono.woff2`).toString(
 
 function getCss(theme: string, fontSize: string) {
   let background = 'white'
-  let foreground = 'black'
+  let foreground = 'white'
 
   if (theme === 'dark') {
     background = 'black'
@@ -35,7 +35,7 @@ function getCss(theme: string, fontSize: string) {
         src: url(data:font/woff2;charset=utf-8;base64,${rglr}) format('woff2');
     }
 
-    @font-face {
+    @font-face {http://localhost:3000/%E4%B8%80%E7%B7%92%E3%81%AB%E3%81%A7%E3%82%88%E3%83%BC%EF%BC%81%EF%BC%81%EF%BC%81%EF%BC%81%E3%81%86%E3%81%8A%E3%83%BC%EF%BC%81%EF%BC%81.png?theme=light&md=1&fontSize=60px&title=hack%20u%20&tag=%23react%20%23vercel
         font-family: 'Inter';
         font-style:  normal;
         font-weight: bold;
@@ -56,7 +56,8 @@ function getCss(theme: string, fontSize: string) {
         // text-align: center;
         align-items: center;
         justify-content: center;
-        padding: 12px;
+        // padding: 12px;
+        // margin-bottom: 10px;
         background-image: linear-gradient(315deg, #f9c5d1 0%, #9795ef 74%);
     }
 
@@ -89,7 +90,7 @@ function getCss(theme: string, fontSize: string) {
         font-style: normal;
         font-weight: 400;
         color: ${foreground};
-        line-height: 1.8;
+        line-height: 1.3;
     }`
 }
 
@@ -98,7 +99,7 @@ export function getHtml(parsedReq: ParsedRequest) {
     text,
     title,
     theme = 'light',
-    md = 0,
+
     fontSize = '60px',
     tag,
   } = parsedReq
@@ -114,47 +115,46 @@ export function getHtml(parsedReq: ParsedRequest) {
         <div>
 
             
-                            <div
+    <div
     style="
-      /*margin: 20px;*/
-      border: 8px white solid;
-      
-      border-top-left-radius: 35px;
-      border-bottom-right-radius: 35px;
-      padding: 10px 30px 10px 30px;
-      font-weight: bold;
+    /*margin: 20px;*/
+    border: 8px white solid;
+    
+    border-top-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    padding: 10px 30px 0px 30px;
+    font-weight: bold;
     
     "
-  >
-              <div class="heading">${emojify(sanitizeHtml(title[0]))}
-                          
-            </div>
+    >
+              <div class="heading" style="font-weight: bold;font-size: 70px">${emojify(
+                sanitizeHtml(title[0])
+              )}</div>
             
-            <div class="heading">${emojify(
-              md ? marked(text) : sanitizeHtml(text)
+            <div class="heading" style="padding-top: 30px;padding-bottom: 10px">${emojify(
+              sanitizeHtml(text)
             )}
             </div>
             
-                                      <div class="heading">${emojify(
-                                        sanitizeHtml(tag[0])
-                                      )}
-                          
-            </div>
+            
+ 
             
             
+            <div class="heading" >${emojify(sanitizeHtml(tag[0]))}</div>
             
             
-                        
-                <img 
+                   <img 
                     class="logo"
                     alt="Generated Image"
                     src="https://images.microcms-assets.io/protected/ap-northeast-1:7b46820b-9e1b-4aab-ba38-e994b4176f3c/service/marina/media/nyan.jpg"
 
                     style="border-radius: 50%"
-                     width="130px"
+                     width="110px"
                      float: right;
                 />
             
+                        
+
             
 <!--            http://localhost:3000/%E4%B8%80%E7%B7%92%E3%81%AB%E3%81%A7%E3%82%88%E3%83%BC%EF%BC%81%EF%BC%81%EF%BC%81%EF%BC%81%E3%81%86%E3%81%8A%E3%83%BC%EF%BC%81%EF%BC%81.png?theme=light&md=1&fontSize=60px&title=hack%20u%20&tag=%23react%20%23vercel-->
             
