@@ -2,6 +2,7 @@ import { readFileSync } from 'fs'
 import marked from 'marked'
 import { sanitizeHtml } from './sanitizer'
 import { ParsedRequest } from './types'
+
 const twemoji = require('twemoji')
 const twOptions = { folder: 'svg', ext: '.svg' }
 const emojify = (text: string) => twemoji.parse(text, twOptions)
@@ -93,7 +94,14 @@ function getCss(theme: string, fontSize: string) {
 }
 
 export function getHtml(parsedReq: ParsedRequest) {
-  const { text, title, theme = 'light', md = 0, fontSize = '60px' } = parsedReq
+  const {
+    text,
+    title,
+    theme = 'light',
+    md = 0,
+    fontSize = '60px',
+    tag,
+  } = parsedReq
   return `<!DOCTYPE html>
 <html>
     <meta charset="utf-8">
@@ -118,15 +126,23 @@ export function getHtml(parsedReq: ParsedRequest) {
     
     "
   >
-                          <div class="heading">${emojify(
-                            sanitizeHtml(title[0])
-                          )}
+              <div class="heading">${emojify(sanitizeHtml(title[0]))}
+                          
             </div>
             
             <div class="heading">${emojify(
               md ? marked(text) : sanitizeHtml(text)
             )}
             </div>
+            
+                                      <div class="heading">${emojify(
+                                        sanitizeHtml(tag[0])
+                                      )}
+                          
+            </div>
+            
+            
+            
             
                         
                 <img 
@@ -140,7 +156,7 @@ export function getHtml(parsedReq: ParsedRequest) {
                 />
             
             
-            
+<!--            http://localhost:3000/%E4%B8%80%E7%B7%92%E3%81%AB%E3%81%A7%E3%82%88%E3%83%BC%EF%BC%81%EF%BC%81%EF%BC%81%EF%BC%81%E3%81%86%E3%81%8A%E3%83%BC%EF%BC%81%EF%BC%81.png?theme=light&md=1&fontSize=60px&title=hack%20u%20&tag=%23react%20%23vercel-->
             
             
             </div>
