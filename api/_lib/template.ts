@@ -118,39 +118,38 @@ export function getHtml(parsedReq: ParsedRequest) {
     <div
     style="
     /*margin: 20px;*/
-    border: 8px white solid;
+    border: 4px white solid;
     
     border-top-left-radius: 40px;
     border-bottom-right-radius: 40px;
-    padding: 10px 30px 0px 30px;
+    padding: 8px 8px 4px 30px;
+    margin-right: 66px;
+    margin-left: 66px;
     font-weight: bold;
     
     "
     >
-              <div class="heading" style="font-weight: bold;font-size: 70px">${emojify(
+              <div class="heading" style="font-weight: 700;font-size: 66px">${emojify(
                 sanitizeHtml(title[0])
               )}</div>
             
-            <div class="heading" style="padding-top: 30px;padding-bottom: 10px">${emojify(
+            <div class="heading" style="padding: 20px 0 20px 0;font-weight: 600;font-size: 58px">${emojify(
               sanitizeHtml(text)
             )}
             </div>
             
             
- 
-            
-            
-            <div class="heading" >${emojify(sanitizeHtml(tag[0]))}</div>
+            <div class="heading" style="font-weight: 500;;font-size: 50px" >${emojify(
+              sanitizeHtml(tag[0])
+            )}</div>
             
             
                    <img 
-                    class="logo"
-                    alt="Generated Image"
                     src="https://images.microcms-assets.io/protected/ap-northeast-1:7b46820b-9e1b-4aab-ba38-e994b4176f3c/service/marina/media/nyan.jpg"
 
-                    style="border-radius: 50%"
+                    style="border-radius: 50%;"
                      width="110px"
-                     float: right;
+                     
                 />
             
                         
